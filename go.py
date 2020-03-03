@@ -254,13 +254,13 @@ select = ''
 turn = 'B'
 
 print('')
-print('***************************************************************')
-print('Total Black Captured: ' + str(total_black_captured))
-print('Total White Captured: ' + str(total_white_captured))
 
 
 while select !='Q':
 
+    print('***************************************************************')
+    print('Total Black Captured: ' + str(total_black_captured))
+    print('Total White Captured: ' + str(total_white_captured))
     print_board(board)
     
     print('Enter q to quit or i to show islands')
@@ -288,11 +288,7 @@ while select !='Q':
                     turn='B'
             else:
                 print('Spot already taken')
-    print('')
-    print('***************************************************************')
     total_black_captured, total_white_captured=calculate_islands(board,total_black_captured,total_white_captured,'dont_print',turn)
-    print('Total Black Captured: ' + str(total_black_captured))
-    print('Total White Captured: ' + str(total_white_captured))
     if select=='I':
         total_black_captured, total_white_captured=calculate_islands(board,total_black_captured,total_white_captured,'print_it',turn)
     
