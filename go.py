@@ -62,7 +62,7 @@ def print_islands(board,B,W,BL,WL,total_BL,total_WL):
     print('===========================================')
 
 
-def calculate_liberties(board,total_black_captured,total_white_captured,B,W,num_B_islands,num_W_islands,print_it):
+def calculate_liberties(board,total_black_captured,total_white_captured,B,W,num_B_islands,num_W_islands,print_it,turn):
     BL = [' '] * 19
     for i in range(19):
         BL[i]=[' '] * 19
@@ -84,12 +84,13 @@ def calculate_liberties(board,total_black_captured,total_white_captured,B,W,num_
             for j in range(19):
                 if BL[i][j]==str(a):
                     total_BL[a]+=1
-        if total_BL[a]==0:
-            for i in range(19):
-                for j in range(19):
-                    if B[i][j]==str(a):
-                        board[i][j]=' '
-                        total_black_captured+=1
+        if turn=='B':
+            if total_BL[a]==0:
+                for i in range(19):
+                    for j in range(19):
+                        if B[i][j]==str(a):
+                            board[i][j]=' '
+                            total_black_captured+=1
                 
     WL = [' '] * 19
     for i in range(19):
@@ -112,19 +113,20 @@ def calculate_liberties(board,total_black_captured,total_white_captured,B,W,num_
             for j in range(19):
                 if WL[i][j]==str(a):
                     total_WL[a]+=1
-        if total_WL[a]==0:
-            for i in range(19):
-                for j in range(19):
-                    if W[i][j]==str(a):
-                        board[i][j]=' '
-                        total_white_captured+=1
+        if turn=='W':
+            if total_WL[a]==0:
+                for i in range(19):
+                    for j in range(19):
+                        if W[i][j]==str(a):
+                            board[i][j]=' '
+                            total_white_captured+=1
     if print_it=='print_it':
         print_islands(board,B,W,BL,WL,total_BL,total_WL)
 
     return total_black_captured, total_white_captured
     
 
-def calculate_islands(board,total_black_captured,total_white_captured,print_it):
+def calculate_islands(board,total_black_captured,total_white_captured,print_it,turn):
     num_B_islands=0
     num_W_islands=0
     B = [' '] * 19
@@ -222,7 +224,7 @@ def calculate_islands(board,total_black_captured,total_white_captured,print_it):
                     num_W_islands+=1
                     W[i][j]=str(num_W_islands-1)
                     
-    total_black_captured, total_white_captured=calculate_liberties(board,total_black_captured,total_white_captured,B,W,num_B_islands,num_W_islands,print_it)
+    total_black_captured, total_white_captured=calculate_liberties(board,total_black_captured,total_white_captured,B,W,num_B_islands,num_W_islands,print_it,turn)
 
     return total_black_captured, total_white_captured
 
@@ -250,6 +252,13 @@ board[15][15]='o'
 
 select = ''
 turn = 'B'
+
+print('')
+print('***************************************************************')
+print('Total Black Captured: ' + str(total_black_captured))
+print('Total White Captured: ' + str(total_white_captured))
+
+
 while select !='Q':
 
     print_board(board)
@@ -281,9 +290,9 @@ while select !='Q':
                 print('Spot already taken')
     print('')
     print('***************************************************************')
-    total_black_captured, total_white_captured=calculate_islands(board,total_black_captured,total_white_captured,'dont_print')
+    total_black_captured, total_white_captured=calculate_islands(board,total_black_captured,total_white_captured,'dont_print',turn)
     print('Total Black Captured: ' + str(total_black_captured))
     print('Total White Captured: ' + str(total_white_captured))
     if select=='I':
-        total_black_captured, total_white_captured=calculate_islands(board,total_black_captured,total_white_captured,'print_it')
+        total_black_captured, total_white_captured=calculate_islands(board,total_black_captured,total_white_captured,'print_it',turn)
     
