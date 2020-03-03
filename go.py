@@ -36,21 +36,15 @@ def print_islands(board,B,W,BL,WL,total_BL,total_WL):
 
     print('')
     print('===========================================')
-    print('Black Islands:')
-    print_board(B)
-
-    print('')
-    print('===========================================')
-    print('White Islands:')
-    print_board(W)
-
-    print('')
-    print('===========================================')
     print('Black Liberties:')
     for i in total_BL:
         print('Island '+str(i)+' liberties: ' + str(total_BL[i]))
     print_board(BL)
-    
+
+    print('')
+    print('===========================================')
+    print('Black Islands:')
+    print_board(B)
 
     print('')
     print('===========================================')
@@ -58,8 +52,11 @@ def print_islands(board,B,W,BL,WL,total_BL,total_WL):
     for i in total_WL:
         print('Island '+str(i)+' liberties: ' + str(total_WL[i]))
     print_board(WL)
+
     print('')
     print('===========================================')
+    print('White Islands:')
+    print_board(W)
 
 
 def calculate_liberties(board,total_black_captured,total_white_captured,B,W,num_B_islands,num_W_islands,print_it,turn):
@@ -121,6 +118,8 @@ def calculate_liberties(board,total_black_captured,total_white_captured,B,W,num_
                             board[i][j]=' '
                             total_white_captured+=1
     if print_it=='print_it':
+        print('')
+        print('***************************************************************')
         print_islands(board,B,W,BL,WL,total_BL,total_WL)
 
     return total_black_captured, total_white_captured
@@ -258,12 +257,14 @@ print('')
 
 while select !='Q':
 
+    print('')
     print('***************************************************************')
+    print('')
     print('Total Black Captured: ' + str(total_black_captured))
     print('Total White Captured: ' + str(total_white_captured))
     print_board(board)
     
-    print('Enter q to quit or i to show islands')
+    print('Enter `q` to quit, `i` to show islands, `ba` to place piece on position AB.')
     if turn=='B':
         select = input("Black's turn: ").upper()
     else:
