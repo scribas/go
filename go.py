@@ -31,9 +31,100 @@ def print_board(board):
                 else:
                     row+='|'
             print(row)
+
+def print_islands(board,B,W,BL,WL,total_BL,total_WL):
+
+    print('')
+    print('===========================================')
+    print('Black Islands:')
+    print_board(B)
+
+    print('')
+    print('===========================================')
+    print('White Islands:')
+    print_board(W)
+
+    print('')
+    print('===========================================')
+    print('Black Liberties:')
+    for i in total_BL:
+        print('Island '+str(i)+' liberties: ' + str(total_BL[i]))
+    print_board(BL)
     
 
-def islands(board):
+    print('')
+    print('===========================================')
+    print('White Liberties:')
+    for i in total_WL:
+        print('Island '+str(i)+' liberties: ' + str(total_WL[i]))
+    print_board(WL)
+    print('')
+    print('===========================================')
+
+
+def calculate_liberties(board,total_black_captured,total_white_captured,B,W,num_B_islands,num_W_islands,print_it):
+    BL = [' '] * 19
+    for i in range(19):
+        BL[i]=[' '] * 19
+    total_BL={}
+    for a in range(num_B_islands):
+        for i in range(19):
+            for j in range(19):
+                if B[i][j]==str(a):
+                    if i-1>=0 and board[i-1][j]!='B' and board[i-1][j]!='W':
+                        BL[i-1][j]=str(a)
+                    if j-1>=0 and board[i][j-1]!='B' and board[i][j-1]!='W':
+                        BL[i][j-1]=str(a)
+                    if i+1<19 and board[i+1][j]!='B' and board[i+1][j]!='W':
+                        BL[i+1][j]=str(a)
+                    if j+1<19 and board[i][j+1]!='B' and board[i][j+1]!='W':
+                        BL[i][j+1]=str(a)
+        total_BL[a]=0
+        for i in range(19):
+            for j in range(19):
+                if BL[i][j]==str(a):
+                    total_BL[a]+=1
+        if total_BL[a]==0:
+            for i in range(19):
+                for j in range(19):
+                    if B[i][j]==str(a):
+                        board[i][j]=' '
+                        total_black_captured+=1
+                
+    WL = [' '] * 19
+    for i in range(19):
+        WL[i]=[' '] * 19
+    total_WL={}
+    for a in range(num_W_islands):
+        for i in range(19):
+            for j in range(19):
+                if W[i][j]==str(a):
+                    if i-1>=0 and board[i-1][j]!='B' and board[i-1][j]!='W':
+                        WL[i-1][j]=str(a)
+                    if j-1>=0 and board[i][j-1]!='B' and board[i][j-1]!='W':
+                        WL[i][j-1]=str(a)
+                    if i+1<19 and board[i+1][j]!='B' and board[i+1][j]!='W':
+                        WL[i+1][j]=str(a)
+                    if j+1<19 and board[i][j+1]!='B' and board[i][j+1]!='W':
+                        WL[i][j+1]=str(a)
+        total_WL[a]=0
+        for i in range(19):
+            for j in range(19):
+                if WL[i][j]==str(a):
+                    total_WL[a]+=1
+        if total_WL[a]==0:
+            for i in range(19):
+                for j in range(19):
+                    if W[i][j]==str(a):
+                        board[i][j]=' '
+                        total_white_captured+=1
+    if print_it=='print_it':
+        print_islands(board,B,W,BL,WL,total_BL,total_WL)
+
+    return total_black_captured, total_white_captured
+    
+
+def calculate_islands(board,total_black_captured,total_white_captured,print_it):
     num_B_islands=0
     num_W_islands=0
     B = [' '] * 19
@@ -85,7 +176,7 @@ def islands(board):
                             B[i][j]=B[i][j-1]
                 if B[i][j]==' ':
                     num_B_islands+=1
-                    B[i][j]=str(num_B_islands)
+                    B[i][j]=str(num_B_islands-1)
             if board[i][j]=='W':
                 if i>=1 and j>=1:
                     if board[i-1][j]=='W' and board[i][j-1]=='W':
@@ -129,21 +220,18 @@ def islands(board):
                             W[i][j]=W[i][j-1]
                 if W[i][j]==' ':
                     num_W_islands+=1
-                    W[i][j]=str(num_W_islands)
-    print('')
-    print('===========================================')
-    print('B islands:')
-    print_board(B)
-
-    print('')
-    print('===========================================')
-    print('W islands:')
-    print_board(W)
-    print('')
-    print('===========================================')
+                    W[i][j]=str(num_W_islands-1)
                     
+    total_black_captured, total_white_captured=calculate_liberties(board,total_black_captured,total_white_captured,B,W,num_B_islands,num_W_islands,print_it)
+
+    return total_black_captured, total_white_captured
+
+                   
 
 alphabet = {0:'A',1:'B',2:'C',3:'D',4:'E',5:'F',6:'G',7:'H',8:'I',9:'J',10:'K',11:'L',12:'M',13:'N',14:'O',15:'P',16:'Q',17:'R',18:'S'}
+
+total_black_captured=0
+total_white_captured=0
 
 board = [' '] * 19
 for i in range(19):
@@ -191,6 +279,11 @@ while select !='Q':
                     turn='B'
             else:
                 print('Spot already taken')
+    print('')
+    print('***************************************************************')
+    total_black_captured, total_white_captured=calculate_islands(board,total_black_captured,total_white_captured,'dont_print')
+    print('Total Black Captured: ' + str(total_black_captured))
+    print('Total White Captured: ' + str(total_white_captured))
     if select=='I':
-        islands(board)
-            
+        total_black_captured, total_white_captured=calculate_islands(board,total_black_captured,total_white_captured,'print_it')
+    
