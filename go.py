@@ -268,7 +268,7 @@ while select !='Q':
     print('Total White Captured: ' + str(total_white_captured))
     print_board(board)
     
-    print('Enter `q` to quit, `i` to show islands, `ba` to place piece on position AB.')
+    print('Enter `q` to quit, `i` to show islands, `ba` to place piece on position BA.')
     if turn=='B':
         select = input("Black's turn: ").upper()
     else:

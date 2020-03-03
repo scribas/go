@@ -42,6 +42,6 @@ Q      -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 R      -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -  
      |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 S      -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -  
-Enter q to quit or i to show islands
+Enter `q` to quit, `i` to show islands, `ba` to place piece on position BA.
 White's turn: 
 ```
