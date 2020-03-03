@@ -1,4 +1,5 @@
 ***************************************************************
+```
 Total Black Captured: 2
 Total White Captured: 3
 
@@ -43,3 +44,4 @@ R      -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 S      -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -  
 Enter q to quit or i to show islands
 White's turn: 
+```
