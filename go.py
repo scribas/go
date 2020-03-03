@@ -36,6 +36,13 @@ def print_islands(board,B,W,BL,WL,total_BL,total_WL):
 
     print('')
     print('===========================================')
+    print('')
+    print('Black Islands:')
+    print_board(B)
+
+    print('')
+    print('===========================================')
+    print('')
     print('Black Liberties:')
     for i in total_BL:
         print('Island '+str(i)+' liberties: ' + str(total_BL[i]))
@@ -43,20 +50,17 @@ def print_islands(board,B,W,BL,WL,total_BL,total_WL):
 
     print('')
     print('===========================================')
-    print('Black Islands:')
-    print_board(B)
+    print('')
+    print('White Islands:')
+    print_board(W)
 
     print('')
     print('===========================================')
+    print('')
     print('White Liberties:')
     for i in total_WL:
         print('Island '+str(i)+' liberties: ' + str(total_WL[i]))
     print_board(WL)
-
-    print('')
-    print('===========================================')
-    print('White Islands:')
-    print_board(W)
 
 
 def calculate_liberties(board,total_black_captured,total_white_captured,B,W,num_B_islands,num_W_islands,print_it,turn):
